@@ -1,0 +1,41 @@
+{% extends "main.html" %}
+{% block content %}
+
+<form method="POST">
+    <div class="mb-3 mx-auto" style="max-width: 36rem;">
+
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <ul class=flashes>
+            {% for message in messages %}
+              <div class="note note-warning">
+                <li>{{ message }}</li>
+              </div>
+            {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+
+      <div class="form-outline mb-4">
+        <label class="form-label" for="form_reg_login">Login</label>
+        <input type="text" name="login" id="form_reg_login" class="form-control" />
+      </div>
+
+      <div class="form-outline mb-4">
+        <label class="form-label" for="form_reg_passwd1">Password</label>
+        <input type="password" name="password" id="form_reg_passwd1" class="form-control" />
+      </div>
+
+      <div class="form-outline mb-4">
+        <label class="form-label" for="form_reg_passwd2">Password retype</label>
+        <input type="password" name="password2" id="form_reg_passwd2" class="form-control" />
+      </div>
+
+      <td><input type="submit" class="btn btn-primary btn-block mb-4" value="Register"></td>
+      <p class="text-center">Registered? <a href="{{ url_for('login_page') }}">Login</a></p>
+
+    </div>
+
+</form>
+
+{% endblock %}

@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <title>My Halt</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    </head>
+    <body>
+    <header class="d-flex justify-content-between flex-wrap align-items-center py-3 mb-4 border-bottom text-center mx-auto" style="max-width: 72rem;">
+      <a href="/" class="text-dark">
+        MyHalt
+      </a>
+      {% if current_user.is_authenticated %}
+          <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+            <li><a href="/{{ current_user.login }}" class="nav-link px-2 link-secondary">{{ current_user.login }}</a></li>
+            <li><a href="#" class="nav-link px-2 link-dark">Features</a></li>
+          </ul>
+      {% endif %}
+      <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0 text-end">
+          {% if current_user.is_authenticated %}
+            <li><a href="{{ url_for('logout') }}" class="nav-link px-2 link-dark">Logout</a></li>
+          {% else %}
+            <li><a href="{{ url_for('login_page') }}" class="nav-link px-2 link-dark">Login</a></li>
+            <li><a href="{{ url_for('register') }}" class="nav-link px-2 link-dark">Register</a></li>
+          {% endif %}
+      </ul>
+    </header>
+    <div id="content">{% block content %}{% endblock %}</div>
+    </body>
+</html>

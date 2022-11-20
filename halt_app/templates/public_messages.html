@@ -1,0 +1,47 @@
+{% extends "main.html" %}
+{% block content %}
+
+{% if current_user.is_authenticated %}
+  <form method="POST" enctype="multipart/form-data">
+    {% if not user_id or current_user.id == user_id %}
+      <div class="form-group card mb-3 text-center mx-auto" style="max-width: 36rem;">
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <ul class=flashes>
+            {% for message in messages %}
+              <div class="note note-warning">
+                <li>{{ message }}</li>
+              </div>
+            {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+
+        <textarea class="form-control" id="home_new_post" name="post" rows="3"></textarea>
+        <input name="file" class="form-control" type="file" id="formFile">
+        <td><input type="submit" class="btn btn-primary btn-block" value="New post"></td>
+      </div>
+    {% endif %}
+  </form>
+{% endif %}
+{% for message in public_messages %}
+  <div class="card mb-3 text-center mx-auto" style="max-width: 36rem;" name="{{message['id']}}">
+    <div class="card-header">
+      <a href="/{{ message['user']['username'] }}">{{ message['user']['username'] }}</a>
+      · <small class="text-muted">{{message['datetime_format']}}</small>
+    </div>
+
+    {% if message['image_url'] %}
+      <img src="{{ message['image_url'] }}" class="card-img-top">
+    {% endif %}
+    <div class="card-body">
+      <p class="card-text">{{message['message']}}</p>
+    </div>
+
+    <div class="card-footer text-muted">
+      <a href="#" class="btn btn-primary">COMMENTS</a>
+    </div>
+  </div>
+{% endfor %}
+
+{% endblock %}
